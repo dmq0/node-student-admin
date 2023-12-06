@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>主页</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/jquery-3.5.1.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/message.min.js"></script>
+  <script src="../utils/utils.js"></script>
+  <script src="../js/template-web.js"></script>
+  <link rel="stylesheet" href="../css/message.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <script src="../utils/tail.js"></script>
+  <script src="../js/jquery.i18n.min.js"></script>
+</head>
+<body>
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <!-- 第一列 -->
+      <div class="col">
+        <div class="card-box dashboard-left-card">
+          <div class="pansum">
+            <img src="../assets/login3.jpg" alt="" id="userImg">
+            <div><strong id="hello1">你好:</strong></div>
+          </div>
+          <h1 id="hello2">早上好,_______!<br> <br>祝你开心每一天</h1>
+          <!-- 列表渲染 -->
+          <!-- 添加待办事项 -->
+        <button type="button" class="btn btn-primary" id="newTodoList" data-bs-toggle="modal" data-bs-target="#exampleModal2" i18n="i18n.newTodo">新建待办事项</button>
+          <table class="table table-striped table-hover" style="width: 480px;">
+            <thead>
+              <tr>
+                <th scope="col" i18n="i18n.xuhao">序号</th>
+                <th scope="col" i18n="i18n.todo">待办事项</th>&nbsp;&nbsp;&nbsp;
+                <th scope="col" i18n="i18n.jindu">完成进度%</th>
+                <th scope="col" i18n="i18n.caozuo">操作</th>
+              </tr>
+            </thead>
+           <tbody id="todolist">
+           </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- 第二列 -->
+      <div class="col">
+        <h6>由于该项目尚未正常上线,功能有待具体化,
+          <br>在此仅展示本项目的细节和亮点,
+          (且此内容不进行国际化处理)
+          <br>
+          <br>
+        </h6>
+        <table class="table">
+          <thead>
+            <th>#</th>
+            <th>项目功能</th>
+            <th>功能展示</th>
+          </thead>
+          <tbody id="indexTbody">
+            <tr>
+              <th scope="row">1</th>
+              <td >国际化处理语言切换</td>
+              <td><img src="../assets/1.jpg" alt=""></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>权限管理(没有权限的小伙伴没有相应功能)</td>
+              <td><img src="../assets/2.jpg" alt=""></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td >token的处理,登陆时存取,退出时删除</td>
+              <td><img src="../assets/3.jpg" alt=""></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>拖尾效果提供娱乐性,可以随时设置关闭</td>
+              <td><img src="../assets/4.jpg" alt=""></td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>持久化处理,退出页面仍然保持设置</td>
+              <td><img src="../assets/5.jpg" alt=""></td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td colspan="2">此外还有:功能全屏,新手指引,动态换肤,excel导入导出,头像上传等功能</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<!-- 模态框/ -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" i18n="i18n.editTodolist">编辑待办事项</h5>
+        <button type="button" data-toggle="modal" data-target="#myModal" class="close closeModel" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">❌</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" style="display: none;" id="bindId">
+        <br>
+        <span i18n="i18n.shixiang">事项：</span><input type="text" id="myInput" placeholder="请添加事项"><br><br>
+       <span i18n="i18n.jindu1"> 进度：</span><input type="text" id="mySchedule" placeholder="请添加进度">
+        <br><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary closeModel" data-dismiss="modal" i18n="i18n.close">关闭</button>
+        <button type="button" class="btn btn-primary" id="saveTodoList" i18n="i18n.save">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 新建模态框 -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" i18n="i18n.newTodo">新建待办事项</h5>
+        <button type="button" data-toggle="modal" data-target="#myModal" class="close closeModel" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="closeModel2">❌</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <span i18n="i18n.shixiang">事项：</span><input type="text" id="newInput"><br><br>
+        <span i18n="i18n.jindu1">进度：</span><input type="text" id="newSchedule">
+        <br><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary closeModel2" data-dismiss="modal" id="closeNew" i18n="i18n.close">关闭</button>
+        <button type="button" class="btn btn-primary" id="addTodoList" i18n="i18n.new">新建</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<!-- 创建模板 -->
+<script type="text/html" id="template">
+        {{each toDolist}}
+                <tr>
+                  <th scope="row">{{$value.id}}</th>
+                  <td>{{$value.toDo}}</td>
+                  <td>{{$value.schedule}}</td>
+                  <td>
+                    <button i18n="i18n.edit" data-id="{{$value.id}}" data-schedule="{{$value.schedule}}" data-todo="{{$value.toDo}}" class="edit btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      {{operationObj.edit}}
+                    </button>
+                    <button i18n="i18n.delete" type="button" data-id="{{$value.id}}" class="deleteList btn btn-outline-danger btn-sm">
+                      {{operationObj.delete}}
+                    </button>
+                  </td>
+                </tr>
+        {{/each toDolist}}
+  </script>
+
+<script>
+  <!-- 解放$符号 -->
+  let J = jQuery.noConflict();
+  localStorage.getItem('lang') || localStorage.setItem('lang','cn');
+  let lang = localStorage.getItem('lang')
+  try{
+  var userData = JSON.parse(localStorage.getItem('user'))
+  }catch(e){
+    Qmsg.error(lang == 'cn'?'请先完成登录':"please login before it")
+  }
+  // 初始化i18n
+   J("[i18n]").i18n({
+    defaultLang:localStorage.getItem('lang') || "cn",
+    filePath: "/i18n/", //注意！要配置好语言文件的正确路径
+    filePrefix: "i18n_",
+    fileSuffix: "",
+    forever: true,
+    callback: function() {
+     
+    }
+  })
+  
+  localStorage.getItem('lang') || localStorage.setItem('lang','cn');
+      if(localStorage.getItem('lang') == 'cn'){
+      J("#inputToSearch").attr('placeholder','情输入部分信息')
+      J("#addStuName").attr('placeholder','请添加姓名')
+      J("#addStuSno").attr('placeholder','请添加学号')
+      J("#addStuAddr").attr('placeholder','请添加住址')
+      }else{
+      J("#inputToSearch").attr('placeholder','Please enter partial information')
+      J("#addStuName").attr('placeholder','please add name')
+      J("#addStuSno").attr('placeholder','please add student ID')
+      J("#addStuAddr").attr('placeholder','please add address')
+      }
+    J("#userImg").attr("src",localStorage.getItem('img'))
+   J(function () {
+      // 模态框
+    J('#exampleModal').modal({
+      "backdrop":"static",
+      "keyboard":true,
+      "remote":true
+    });
+    // 模态框出现
+    J('#exampleModal').on('shown.bs.modal', function (e) {
+    J('#myInput').trigger('focus')
+    })
+      // 模态框关闭
+    J('#exampleModal').on('hide.bs.modal', function (e) {
+      Qmsg.info('关闭编辑')
+    })
+    J('#exampleModal2').on('hide.bs.modal', function (e) {
+      Qmsg.info('关闭编辑')
+    })
+    // 关闭模态框
+    J('.closeModel').on('click', function () {
+    J('#exampleModal').modal('hide');
+    })
+    J('.closeModel2').on('click', function () {
+    J('#exampleModal2').modal('hide');
+    })
+    // 模态框保存
+    J("#saveTodoList").on('click',function () {
+    let loading =  Qmsg.loading('新建中')
+    if(J('#myInput').val() == ''){
+      Qmsg.error('请添加事项')
+      return
+    }
+      request.post('/todoList/edit',{
+      toDo:J('#myInput').val(),
+      schedule:J('#mySchedule').val(),
+      id:J('#bindId').val()
+    }).then(res=>{
+      getList()
+    }).catch(err=>{
+      Qmsg.error('保存失败')
+    }).finally(()=>{
+    J('#exampleModal').modal('hide');
+      loading.close()
+      Qmsg.success('更新成功')
+    J('#myinput').val('')
+    })
+    })
+    // 模态框新建
+    J("#addTodoList").on('click',function () {
+    J('#exampleModal2').modal('hide');
+    console.log(J('#newSchedule').val());
+    request.post('/todoList/new',{
+      toDo:J('#newInput').val(),
+      schedule:J('#newSchedule').val(),
+      owner:userData[0].username
+    }).then(res=>{
+      getList()
+      J("#newInput").val('')
+      J("#newSchedule").val('')
+    }).catch(err=>{
+      Qmsg.error('保存失败')
+    }).finally(()=>{
+      Qmsg.success('更新成功')
+    })
+    })
+    // 获取例表数据
+   let toDolist
+   let getList = function () {
+    request.post('/todoList/get',{
+    // 通过用户名查找
+    owner:userData[0].username
+   }).then(res=>{
+    toDolist=res.data
+    // 将模板放到渲染区域
+    let operationObj = {
+      edit:lang=='cn'?'编辑':'Edit',
+      delete:lang=='cn'?'删除':"Delete"
+    }
+    let temp1 = template('template',{toDolist:toDolist,operationObj:operationObj})
+    J('#todolist').html(temp1)
+    // 编辑
+    J('.edit').on('click',function(){
+    J('#myInput').val(this.getAttribute('data-todo'))
+    J('#mySchedule').val(this.getAttribute('data-schedule'))
+    J('#bindId').val(this.getAttribute('data-id'))
+  })
+  J('.deleteList').on('click',function () {
+    request.post('/todoList/delete',{
+      id:this.getAttribute('data-id')
+    }).then(()=>{
+        getList()
+        Qmsg.success('删除成功')}
+    ).catch(e=>{
+      Qmsg.error('服务器错误')
+    })
+  })
+   })
+   }
+   let i18nHello = lang == 'cn'?'你好':'Hello'
+   let i18nMorning = lang == 'cn'?'早上好':'GoodMorning'
+   let i18nTalk = lang == 'cn'?'祝你开心每一天':'Happy Everyday'
+   J('#hello1').html(`${i18nHello}:${userData[0].username}`)
+   J('#hello2').html(`${i18nMorning},${userData[0].username}!<br> <br>${i18nTalk}`)
+   getList()
+   if(localStorage.getItem('tail')){
+      let startTail = document.addEventListener('mousemove',function (e) {
+      let x = e.pageX;
+      let y = e.pageY;
+      new Ball(x, y);
+    }) 
+    }else{
+      try{
+        document.removeEventListener('mousemove',startTail)
+      }catch{}
+    }
+  })
+
+
+
+</script>
+</html>

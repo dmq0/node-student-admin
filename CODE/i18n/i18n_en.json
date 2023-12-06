@@ -1,0 +1,71 @@
+{
+
+  "i18n.title":"MANAGE",
+  "i18n.center":"My Center",
+  "i18n.class":"Class Info",
+  "i18n.limit":"Permission",
+  "i18n.school":"School Info",
+  "i18n.file":"File Manage",
+  "i18n.noselect":"Cancel",
+  "i18n.confirm":"Confirm",
+  "i18n.selectColor":"Select Theme Color",
+  "i18n.direction":"Indicator Panel",
+
+
+
+"i18n.guide": "Guide",
+"i18n.tail": "Tail",
+"i18n.full": "Full Screen",
+"i18n.change": "Change Theme",
+"i18n.global": "Internationalization",
+"i18n.logout": "✡Quit",
+"i18n.more": "🚩More",
+
+
+"i18n.someInfo": "Please enter partial information",
+"i18n.search": "Search",
+"i18n.new": "New",
+"i18n.import": "Import from Excel",
+"i18n.export": "Export to Excel",
+"i18n.searchClose": "Close",
+"i18n.searchCopy": "Copy",
+"i18n.edit":"Edit",
+"i18n.delete":"Delete",
+"i18n.add":"Add",
+"i18n.addStudent":"Add Student",
+"i18n.male":"male",
+"i18n.female":"female",
+"i18n.addName": "please add name",
+"i18n.addSno": "please add student ID",
+"i18n.addAddr": "please add address",
+"i18n.name":"Name ：",
+"i18n.sno":"Stu ID ：",
+"i18n.sex":"Gender ：",
+"i18n.birth":"Birthday：",
+"i18n.addr":"Address：",
+"i18n.close":"Close",
+
+
+
+"i18n.editTodolist":"Edit Todo List",
+"i18n.newTodo": "New Todo",
+"i18n.xuhao": "Number",
+"i18n.todo": "Todo",
+"i18n.jindu": "Progress %",
+"i18n.caozuo": "Operation",
+"i18n.shixiang": "Item Info：",
+"i18n.jindu1": "Progress ：",
+"i18n.save": "Save",
+
+
+"i18n.basicShow": "Display Basic School Data",
+"i18n.goodNum": "Number of Excellent Graduates from Henan Normal University",
+"i18n.sfm": "Scale Factor Mode",
+"i18n.schoolPosition": "School Campus Location",
+
+"i18n.shangchuan":"Click to upload",
+"i18n.msg":"Click or drag to upload the file",
+"i18n.Photo":"Send Photo",
+
+"i18n.editLimit":"Eidt Limit"
+}

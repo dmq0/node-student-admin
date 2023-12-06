@@ -1,0 +1,104 @@
+:root{
+  --left-bar-color: #304156;
+}
+#click-upload{
+  margin-left: 300px;
+  float: left;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  line-height: 300px;
+  box-shadow: 0px 0px 1px 2px rgb(13, 110, 253);
+}
+#drag-upload{
+  margin-left: 4px;
+  box-shadow: 0px 0px 1px 2px rgb(5, 161, 0);
+  text-align: center;
+  line-height: 300px;
+  float: left;
+  width: 300px;
+  height: 300px;
+}
+#box > .container{
+  transition: all .8s ease-in-out 0.1s;
+}
+ #box > .container > .row{ 
+   margin-left: -40px; 
+} 
+#drag-upload > i{
+  color: rgb(5, 161, 0);
+  font-size: 50px;
+}
+h5{
+  width: 1206px;
+  text-align: center;
+  transition: all 2s ease-in-out 0s;
+}
+.tail {
+  z-index: 100;
+  position: absolute !important;
+  border-radius: 50% !important;
+  user-select: none;
+  pointer-events: none;
+  cursor: default;
+}
+
+#i {
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  width: 400px;
+  height: 400px;
+}
+body{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+#procress{
+  width: 500px;
+  margin: 100px auto;
+}
+#procress > #img-upload-progress{
+  height: 15px;
+  border-radius: 10px;
+  width: 0%;
+  transition: all .5s linear 0s;
+  color: white;
+  text-align: center;
+  line-height: 15px;
+  font-size: 14px;
+  background-color: var(--left-bar-color);
+}
+.pansum {
+  position: absolute;
+  left: 200px;
+  top: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.pansum img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform .5s ease-in-out 0s;
+  transform-origin: right center;
+}
+
+.pansum img:hover {
+  transform: rotate(-90deg);
+}
+
+.pansum div {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(251, 249, 146, 0.3);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 150px;
+}

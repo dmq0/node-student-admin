@@ -1,0 +1,41 @@
+<html lang="en">
+ 
+ <head>
+     <meta charset="UTF-8">
+     <title>国际化</title>
+     <script src="../js/jquery-3.5.1.min.js"></script>
+     <script src="../js/jquery.i18n.min.js"></script>
+ </head>
+ 
+ <body>
+ 
+    <div i18n="i18n.test">multi-language</div>
+    <div i18n="i18n.test2">internationalization</div>
+ <button id="btn">点击切换</button>
+     <script>
+        $("[i18n]").i18n({
+    defaultLang: "cn",
+    filePath: "/i18n/", //注意！要配置好语言文件的正确路径
+    filePrefix: "i18n_",
+    fileSuffix: "",
+    forever: true,
+    callback: function() {
+        console.log('跟换·撒地方');
+    }
+    });
+    $('#btn').on('click',function () {
+        $("[i18n]").i18n({
+    defaultLang: "en",
+    filePath: "/i18n/", //注意！要配置好语言文件的正确路径
+    filePrefix: "i18n_",
+    fileSuffix: "",
+    forever: true,
+    callback: function() {
+        console.log('跟换·撒地方');
+    }
+    });
+    })
+     </script>
+ </body>
+
+ </html>

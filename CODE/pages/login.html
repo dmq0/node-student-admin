@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>欢迎登录</title>
+  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="./fonts/iconfont.css">
+  <!-- 注意本项目在使用时，更改了bootstrap的css文件中的样式 -->
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/message.min.css">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./js/jquery-3.5.1.min.js"></script>
+  <script src="./js/message.min.js"></script>
+  <script src="./utils/utils.js"></script>
+</head>
+<body>
+  <div class="loginForm">
+    <h2>用户登录😎</h2>
+    <form>
+        <div class="form-group">
+            <label for="userInput">用户名</label>
+            <input type="text" class="form-control" value="admin" id="userInput" placeholder="请输入用户名">
+            <p class="text-danger yc" id="userError">用户名错误</p>
+        </div>
+        <div class="form-group">
+            <label for="passwordInput">密码</label>
+            <input type="password" value="Admin123" class="form-control" id="passwordInput" placeholder="请输入密码">
+            <i class="iconfont icon-yanjing1" id="passwordIcon"></i>
+            <p class="text-danger yc" id="passwordError">密码错误</p>
+        </div>
+        <div class="button">
+            <input type="button" class="btn btn-primary" id="dl" value="登 录"/>
+        </div>
+        
+    </form>
+    <br><br><br>备注：<br>
+    <p>管理员：admin ，密码：Admin123<br>
+         学生1：xd ， &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 密码：Xd123123<br>
+          学生：xc ，&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码：Xc123123<br>
+     </p>
+</div>
+
+</body>
+<script>
+    <!-- 解放$符号 -->
+let J = jQuery.noConflict();
+    J(function () {
+       let userExg = /^(?!\d+$)\w{1,10}$/
+       let passwordExg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*]{8,20}$/
+       // 绑定点击事件
+       J('#dl').on('click',function () {
+        if(passwordExg.test(J('#passwordInput').val()) && userExg.test(J('#userInput').val())){
+        postLogin();
+        }else{
+        J('#dl').off('click',postLogin)
+        Qmsg.error('登录信息有误')
+        }
+     })
+       // 文本框改变时，进行校验
+    J('#userInput').on('blur',function () {
+        $('#userError').attr('class',userExg.test($('#userInput').val())?'text-danger yc':'text-danger xs')
+    })
+    J('#passwordInput').on('blur',function () {
+        J('#passwordError').attr('class',passwordExg.test(J('#passwordInput').val())?'text-danger yc':'text-danger xs')
+    })
+    // 点击切换标签样式，显示密码
+    let flag = false
+    J('#passwordIcon').on('click',function () {
+        J('#passwordInput').attr("type", flag?"password":"text");
+        flag=!flag;
+        J('#passwordIcon').attr('class',flag?'iconfont icon-yanjing':'iconfont icon-yanjing1');
+    })
+
+   
+  // 定义发送登录请求的方法
+  const postLogin = function () {
+        // 一、弹窗提示
+       let loading=Qmsg.loading('登录请求中...')
+        // 二、像后端发送请求
+        request.post('/user/userLogin',{
+            input:J('#userInput').val(),
+            password:J('#passwordInput').val()
+        })
+        // 三、接受请求进行登录
+        // 四、停止加载弹窗
+        .then(function (res) {
+            if(res.status=='success'){
+                console.log('这是请i去的信息',res);
+                console.log(res.data);
+                console.log(res.userInfo);
+                Qmsg.success('登陆成功')
+                // 保存用户信息到本地 (转为json字符串)
+                localStorage.setItem('user',JSON.stringify(res.userInfo))
+                localStorage.setItem('img',baseURL+'/userPhoto/'+res.userInfo[0].img)
+                // 跳转
+                sessionStorage.setItem('token',res.data)
+                location.replace('/pages/index.html')
+            }else{
+                Qmsg.error('账号或密码错误')
+            }
+        }).catch(err=>{
+            Qmsg.error('服务器错误')
+        }).finally(()=>{
+            loading.close()
+        })
+    }
+  
+    })
+    
+</script>
+</html>

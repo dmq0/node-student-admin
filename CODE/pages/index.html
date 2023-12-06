@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>学生管理系统</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./fonts/iconfont.css">
+  <!-- 注意本项目在使用时，更改了bootstrap的css文件中的样式 -->
+  <script src="./js/jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./js/message.min.js"></script>
+  <script src="./js/shepherd.min.js"></script>
+  <script src="./js/jquery.i18n.min.js"></script>
+  <link rel="stylesheet" href="./css/shepherd.css">
+  <script src="./utils/tail.js"></script>
+</head> 
+<body>
+  <div class="left-flex" id="step7">
+    <!-- 动态路由展示 -->
+    <!-- 根据后端返回的数据 -->
+    <ul id="left-span">
+      <li class="left-title">
+        <img src="./assets/giphy2.gif" class=" translate" alt="">
+        <h1><span  i18n="i18n.title">学生管理系统</span></h1>
+      </li>
+      <li id="center" style="display: none;" class="dashboard"><a class="link" href="./html/dashboard.html" target="main"><i class="iconfont icon-user"></i><span style="color: aliceblue;" class="left-font" i18n="i18n.center">个人中心</span></a></li>
+      <li id="class" style="display: none;" class="class"><a class="link" href="./html/class.html" target="main"><i class="iconfont icon-weibiaoti--"></i><span class="left-font" i18n="i18n.class">班级信息</span></a></li>
+      <li id="limit" style="display: none;" class="limit"><a class="link" href="./html/limit.html" target="main"><i class="iconfont icon-guanliyuan_jiaoseguanli"></i><span class="left-font" i18n="i18n.limit">权限设置</span></a></li>
+      <li id="school" style="display: none;" class="school"><a class="link" href="./html/school.html" target="main"><i class="iconfont icon-xuexiao_xuexiaoxinxi
+        "></i><span class="left-font" i18n="i18n.school">学校信息</span></a></li>
+      <li id="file" style="display: none;" class="file"><a class="link" href="./html/file.html" target="main"><i class="iconfont icon-duowenjianjia"></i><span class="left-font" i18n="i18n.file">文件管理</span></a></li>
+    </ul>
+  </div>
+  <div class="top-fixed">
+    <div class="top-left" style="position: relative;">
+      <i id="step1" class="iconfont icon-jizhanguanli"></i>
+      <span i18n="i18n.direction">指示板</span>
+    </div>
+    <div class="top-right">
+      <i id="step2" class="iconfont icon-chengchangzhiyin" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="指引"></i>
+      <i id="step3" class="iconfont icon-yuyan" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="拖尾"></i>
+      <i id="step4" class="iconfont icon-fangda1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="全屏"></i>
+      <i id="step5" class="iconfont icon-pifu1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="换肤"></i>
+      <i id="step6" class="iconfont icon-yuyan1" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="国际化"></i>
+      <img src="./assets/giphy2.gif" alt="图片加载失败">
+      <ul class="list-group" id="list-group">
+        <li class="list-group-item" id="step8"><a href="" i18n="i18n.logout">✡退出</a></li>
+        <li class="list-group-item" id="step9"><a href="http://xdxc.web3v.vip/" i18n="i18n.more">🚩更多</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="main">
+    <iframe id="iframe" src="./html/dashboard.html" name="main" frameborder="0" allowfullscreen></iframe>
+  </div>
+  <!-- 模态框选取主题色 -->
+  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" i18n="i18n.selectColor">选取主题色</h5>
+          <button type="button" data-toggle="modal" data-target="#myModal" class="close closeModel" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="closeModal">❌</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <input type="color" id="colorInput">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal" i18n="i18n.noselect">取消</button>
+          <button type="button" class="btn btn-primary" id="confirm" i18n="i18n.confirm">确定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+      sessionStorage.getItem('token') || location.replace('/pages/login.html')
+      $('.link').on('click',function () {
+      sessionStorage.getItem('token') || location.reload()
+      })
+      let permissionArr = JSON.parse(localStorage.getItem('user'))[0].permission.split(',');
+      permissionArr.forEach(item => {
+        $('#'+item).css('display','block')
+      });
+      // 退出登录
+      $("#step8").on('click',function () {
+        location.replace('/pages/login.html')
+        sessionStorage.removeItem('token')
+      })
+      localStorage.getItem('lang') || localStorage.setItem('lang','cn');
+      if(localStorage.getItem('lang') == 'cn'){
+      $("[data-bs-title]")[0].setAttribute('data-bs-title','指引')
+      $("[data-bs-title]")[1].setAttribute('data-bs-title','拖尾')
+      $("[data-bs-title]")[2].setAttribute('data-bs-title','全屏')
+      $("[data-bs-title]")[3].setAttribute('data-bs-title','换肤')
+      $("[data-bs-title]")[4].setAttribute('data-bs-title','国际化')
+      }else{
+      $("[data-bs-title]")[0].setAttribute('data-bs-title','Guide')
+      $("[data-bs-title]")[1].setAttribute('data-bs-title','Tail')
+      $("[data-bs-title]")[2].setAttribute('data-bs-title','Full Screen')
+      $("[data-bs-title]")[3].setAttribute('data-bs-title','Change Theme')
+      $("[data-bs-title]")[4].setAttribute('data-bs-title','International')
+      }
+      // 创建模态框
+        $(function () {
+        $("#Modal").modal({
+        "keyboard":true,
+        })
+        localStorage.getItem('themeColor') ? $(':root').css('--left-bar-color',localStorage.getItem('themeColor')): localStorage.setItem('themeColor',' #304156');
+ // 启动tooltip
+ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+ // 控制左侧栏宽度
+ let isTranslate = false;
+//  主题色点击事件
+ $("#step5").on('click',function () {
+  $('#Modal').modal('show')
+  $('#colorInput').val(localStorage.getItem('themeColor') || '#304156')
+ })
+ $(".closeModal").on('click',function () {
+  $("#Modal").modal('hide')
+ })
+$('#confirm').on('click',function () {
+  let color = $('#colorInput').val();
+  $('#colorInput').val(color)
+  $(':root').css('--left-bar-color', color);
+  localStorage.setItem('themeColor',color)
+  $("#Modal").modal('hide');
+})
+
+ 
+$("#step1").click(function () {
+  if(isTranslate){
+    $('#left-span').addClass('translate')
+    $('iframe').css({
+      width:"calc(100% - 54px)",
+      transition: "width 0.8s ease-in-out 0s",
+    })
+    isTranslate=false
+  }else{
+    $('#left-span').removeClass('translate')
+    $('iframe').css({
+      width:"calc(100% - 210px)",
+      transition: "width 0.8s ease-in-out 0s",
+    })
+    isTranslate=true
+  }
+})
+$('#step2').on('click',function () {
+  tour.start();
+})
+    // 创建引导方法
+    const tour = new Shepherd.Tour({
+      useModalOverlay: true,
+      defaultStepOptions: {
+        classes: 'shadow-md bg-purple-dark',
+        scrollTo: true
+      }
+    });
+    let langFlag = (localStorage.getItem('lang')=='cn')
+    let i18nClose = langFlag?'关闭':'Close'
+    let i18nNext = langFlag?'下一步':'Next Step'
+    function addStep(element,text,position='bottom'){
+      tour.addStep({
+      id: element,
+      text: text,
+      attachTo: {
+        element: '#'+element,
+        on: position
+      },
+      classes: 'example-step-extra-class',
+      buttons: [
+        {
+          text: i18nClose,
+          action: tour.hide
+        },
+        {
+          text: i18nNext,
+          action: tour.next
+        }
+      ]
+    });
+    }
+    addStep('step1',langFlag?'伸缩侧边栏':'Telescopic sidebar')
+    addStep('step2',langFlag?'新手指引':'Novice guide')
+    addStep('step3',langFlag?'拖尾':'Streaking')
+    addStep('step4',langFlag?'全屏':'Full Screen')
+    addStep('step5',langFlag?'主题色':'Subject color')
+    addStep('step6',langFlag?'国际化':'Internationalization')
+    addStep('step7',langFlag?'侧边栏':'Sidebar','right')
+    addStep('step8',langFlag?'退出登录':'Logout')
+    addStep('step9',langFlag?'更多':'more')
+    $("#step3").on('click',function () {
+      localStorage.getItem('tail')?localStorage.removeItem('tail'):localStorage.setItem('tail','tail')
+      location.reload()
+    })
+    if(localStorage.getItem('tail')){
+      let startTail = document.addEventListener('mousemove',function (e) {
+      let x = e.pageX;
+      let y = e.pageY;
+      new Ball(x, y);
+    }) 
+    }else{
+      try{
+        document.removeEventListener('mousemove',startTail)
+      }catch{}
+    }
+    /*
+ * 进入全屏
+ */
+function fullScreen() {
+    let el = document.getElementById('iframe') // 获取需要全屏显示的因素
+    let rfs = el.requestFullScreen
+        || el.webkitRequestFullScreen
+        || el.mozRequestFullScreen
+        || el.msRequestFullScreen
+    	// 获取实现全屏的方法，此处兼容了火狐、谷歌、IE、safari浏览器
+    if (typeof rfs != "undefined" && rfs) {
+        rfs.call(el)
+        return
+    }
+    if (typeof window.ActiveXObject != "undefined") {
+        let wscript = new ActiveXObject("WScript.Shell") // 取得系统目录 
+        if (wscript) {
+            wscript.SendKeys("{F11}") 
+        }
+    }
+}
+       // 全屏
+       $('#step4').on('click',function () {
+         fullScreen()
+       })
+       // 国际化 
+    $("[i18n]").i18n({
+    defaultLang:localStorage.getItem('lang') || "cn",
+    filePath: "/i18n/", //注意！要配置好语言文件的正确路径
+    filePrefix: "i18n_",
+    fileSuffix: "",
+    forever: true,
+    callback: function() {
+     
+    }
+    });
+       $('#step6').on('click',function () {
+       localStorage.getItem('lang') == 'cn' ?localStorage.setItem('lang','en'):localStorage.setItem('lang','cn'); 
+       location.reload()
+       })
+})
+</script>
+</html>
